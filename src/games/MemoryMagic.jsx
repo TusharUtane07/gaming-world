@@ -27,6 +27,7 @@ const MemoryMagic = () => {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   // Shuffling up the cards.
   const shuffleCards = () => {
@@ -34,6 +35,8 @@ const MemoryMagic = () => {
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setCards(shuffledCards);
     setTurns(0);
   };
@@ -45,6 +48,7 @@ const MemoryMagic = () => {
   // comparing up the choices.
   useEffect(()=>{
     if(choiceOne && choiceTwo){
+      setDisabled(true)
       if(choiceOne.src === choiceTwo.src){
         setCards(prevCards => {
           return prevCards.map(card =>{
@@ -57,8 +61,9 @@ const MemoryMagic = () => {
         })
         resetTurn();
       }else{
-
-        resetTurn();
+        setTimeout(() => {
+          resetTurn();
+        }, 1000);
       }
 
     }
@@ -69,7 +74,13 @@ const MemoryMagic = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
     setTurns(prevTurns => prevTurns + 1);
+    setDisabled(false)
   }
+
+  // Start game automatically logic
+  useEffect(()=>{
+    shuffleCards()
+  },[])
 
   return (
     <div className="App">
@@ -84,10 +95,12 @@ const MemoryMagic = () => {
               key={card.id}
               handleChoice={handleChoice}
               flipped={ card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disabled}
             />
           );
         })}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import React from "react";
 import './SingleImage.css'
 
-const SingleImage = ({card, handleChoice, flipped}) => {
+const SingleImage = ({card, handleChoice, flipped, disabled}) => {
 
   const handleClick = () => {
-    handleChoice(card)
+    if(!disabled) {
+      handleChoice(card)
+    }
   }
 
   return (
