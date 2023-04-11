@@ -86,7 +86,7 @@ const MemoryMagic = () => {
     <div className="App">
       <h1>Memory Match</h1>
       <button onClick={shuffleCards}>New Game</button>
-
+      <p>Turns: {turns}</p>
       <div className="card-grid">
         {cards.map((card) => {
           return (
@@ -100,7 +100,6 @@ const MemoryMagic = () => {
           );
         })}
       </div>
-      <p>Turns: {turns}</p>
     </div>
   );
 };

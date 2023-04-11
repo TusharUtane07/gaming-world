@@ -17,6 +17,7 @@
     transition-delay: 0.2s;
 }
 .card .back{
+    width: 100%;
     transition: all ease-in 0.2s;
     transition-delay: 0.2s;
 }
